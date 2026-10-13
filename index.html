@@ -1,13 +1,79 @@
 <!doctype html>
-<html lang="en">
+<!-- lang="de": Die Seitensprache auf Deutsch gestellt (KI Empfehlung wegen Screenreader) -->
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
+    <!-- Von Vite beim erstellen schon angelegt die Zeile. Macht kleines Symbol im Browser-Tab (Favicon). Die Datei liegt im Ordner public/ -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Von Vite beim Erstellen schon angelegt. Für responsive design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>502_esa1_angelshop</title>
+    <title>Top Angelshop</title>
   </head>
   <body>
-    <div id="app"></div>
+    <!-- Kopfbereich mit Titel und Hauptmenü -->
+    <header>
+      <h1>Top Angelshop</h1>
+      <!-- Hauptmenü. aria-label für eigenen Namen, damit Screenreader es
+           vom Menü im Footer unterscheiden können, laut ESA Angabe -->
+      <nav aria-label="Hauptnavigation">
+        <ul>
+          <!-- href="#..." springt zum Bereich mit der passenden id auf dieser Seite -->
+          <li><a href="#sortiment">Was wir für dich haben</a></li>
+          <li><a href="#ueber-uns">Wer wir sind</a></li>
+          <li><a href="#kontakt">Wie du uns erreichst</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hauptinhalt der Seite (nur einmal pro Seite erlaubt) -->
+    <main>
+      <section id="sortiment">
+        <h2>Unser Sortiment</h2>
+        <!-- for="suche" verbindet das label mit dem Eingabefeld mit id="suche" -->
+        <label for="suche">Angel suchen</label>
+        <!-- Suchfeld für die Angeln. type="search" gibt x zum Leeren,
+             placeholder für Beispieltext vorbereitet -->
+        <input type="search" id="suche" />
+        <!-- Trefferanzeige (wie "3 von 9 Angeln"), füllt  TypeScript an.
+             aria-live="polite": Screenreader lesen Änderungen vor,
+             sobald sie mit dem aktuellen Satz fertig sind -->
+        <p id="trefferanzeige" aria-live="polite"></p>
+        <!-- Noch leere Liste: TypeScript fügt hier dann die Angeln als Einträge in eine Liste -->
+        <ul id="produktliste"></ul>
+      </section>
+
+      <!-- aside = ergänzender Inhalt neben dem Hauptthema. Vorerst mal "Fisch der Woche" -->
+      <aside>
+        <h2>Fisch der Woche</h2>
+        <p>HIER DEIN TEXT</p>
+      </aside>
+
+      <section id="ueber-uns">
+        <h2>Über uns</h2>
+        <p>HIER DEIN TEXT</p>
+      </section>
+    </main>
+
+    <!-- Fußbereich mit Kontakt und den üblichen rechtlichen Links -->
+    <footer id="kontakt">
+      <h2>Kontakt</h2>
+      <!-- address = das passende Element für Kontaktdaten -->
+      <address>
+        Top Angelshop<br />
+        Musterstraße 1, 1010 Wien<br />
+        <a href="mailto:kontakt@example.com">kontakt@example.com</a>
+      </address>
+      <!-- Zweites Menü, dafür eigenes aria-label -->
+      <nav aria-label="Rechtliches">
+        <ul>
+          <li><a href="#">AGB</a></li>
+          <li><a href="#">Impressum</a></li>
+          <li><a href="#">Datenschutz</a></li>
+        </ul>
+      </nav>
+    </footer>
+
+    <!-- Lädt den TypeScript-Code von src/main.ts, Vite macht die Übersetzung in JS -->
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
