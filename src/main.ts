@@ -103,11 +103,45 @@ function erstelleAngelHtml(angel: Angel): string {
   `;
 }
 
-// Die leere Liste <ul id="produktliste"> aus index.html holen
-const produktliste = document.querySelector<HTMLUListElement>("#produktliste");
+// Die Liste <ul id="produktliste"> aus index.html holen
 
-// Null-Prüfung: weitermachen nur dann, wenn die Liste auch gefunden wurde (wie bei Modul 02, Seite 30)
-if (produktliste) {
-  // ARRAY-METHODE map: macht aus jeder Angel ihr HTML. join("") packt alles zusammen.
-  produktliste.innerHTML = angeln.map(erstelleAngelHtml).join("");
+// FUNKTION 3: Die Angeln nach dem eingetippten Suchbegriff filtern
+//
+function angelFilter(angeln: Angel[], suchbegriff: string): Angel[] {
+  const begriff = suchbegriff.trim();
+  return angeln.filter((angel) => angel.name.includes(begriff));
+}
+
+// Die drei benötigten Elemente aus index.html holen
+const produktliste = document.querySelector<HTMLUListElement>("#produktliste");
+const suchfeld = document.querySelector<HTMLInputElement>("#suche");
+const trefferanzeige =
+  document.querySelector<HTMLParagraphElement>("#trefferanzeige");
+
+// METHODE 4: zeigt die Angel-Liste an updatet die Trefferanzeige
+// ": void" gibt nichts zurück, sie verändert nur die Seite
+function angelSuche(liste: Angel[]): void {
+  // Null-Prüfung: Abbruch wenn eines der Elemente fehlt
+  if (!produktliste || !trefferanzeige) {
+    return;
+  }
+
+  produktliste.innerHTML = liste.map(erstelleAngelHtml).join("");
+
+  if (liste.length === 0) {
+    trefferanzeige.textContent = "Nichts gefunden.";
+  } else {
+    trefferanzeige.textContent = `${liste.length} von ${angeln.length} Angeln`;
+  }
+}
+
+// Beim Laden der Seite sollen zuerst alle 9 Angeln anzeigen
+angelSuche(angeln);
+
+// EVENT: bei jeder Eingabe im Suchfeld neu filtern und anzeigen
+if (suchfeld) {
+  suchfeld.addEventListener("input", () => {
+    const treffer = angelFilter(angeln, suchfeld.value);
+    angelSuche(treffer);
+  });
 }
