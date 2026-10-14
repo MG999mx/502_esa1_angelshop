@@ -1,0 +1,19 @@
+/* Bilder verkleinern auf 200 breit */
+img {
+  max-width: 200px;
+  height: auto;
+}
+
+/* Die Aufzählungspunkte aus der Produktliste wegnehmen und die Produkte als Raster mit 3 Spalten */
+#produktliste {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 300px);
+  gap: 20px;
+}
+
+/* Die bilder nicht einrücken */
+figure {
+  margin: 0;
+}
